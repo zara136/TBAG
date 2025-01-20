@@ -1,16 +1,13 @@
 from room import Room
 from character import Enemy
 
-kitchen = Room()
-kitchen.set_name('kitchen')
+kitchen = Room("kitchen")
 kitchen.set_description("a dank and dirty room buzzing with flies")
 
-ballroom = Room()
-ballroom.set_name('ballroom')
+ballroom = Room("ballroom")
 ballroom.set_description("a vast room with a shining wooden floor")
 
-dining_hall = Room()
-dining_hall.set_name('dining hall')
+dining_hall = Room("dining hall")
 dining_hall.set_description("a large room with ornate golden decorations")
 
 kitchen.link_room(dining_hall, "south")
@@ -32,5 +29,22 @@ while True:
     
     if inhabitant is not None:
         inhabitant.describe()
-        command = input("> ")
+    
+    command = input("> ")
+    if command in ["north", "south", "east", "west"]:
         current_room = current_room.move(command)
+    elif command == "talk":
+        if inhabitant is not None:
+            inhabitant.talk()
+    elif command == "fight":
+        if inhabitant is not None:
+            print("what will you fight with?")
+            fight_with = input()
+            if inhabitant.fight(fight_with) == True:
+                print("you won the fight")
+                current_room.set_character(None)
+            else:
+                print("you lost the fight")
+                break
+        else:
+            print("there is no one here to fight with")
