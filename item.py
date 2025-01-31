@@ -2,6 +2,10 @@ class Item:
     def __init__(self):
         self.name = None
         self.description = None
+
+    def describe(self):
+        print("a " + self.name + " is over here")
+        print(self.description)
     
     def get_name(self):
         return self.name
